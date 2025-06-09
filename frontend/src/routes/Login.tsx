@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Card,
   CardAction,
@@ -14,13 +14,11 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useUsers } from "@/contexts/userContext";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { id, setId, setError } = useUsers();
+  const { setId, setError } = useUsers();
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
     console.log(e.target.value);
