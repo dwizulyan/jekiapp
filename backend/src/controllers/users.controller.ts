@@ -5,6 +5,7 @@ import type { IUsers } from "@/types/users.type.js";
 import { sign } from "hono/jwt";
 import { setCookie, deleteCookie } from "hono/cookie";
 import { ValidationError } from "@/errors/ValidationError.js";
+import { Prisma } from "@prisma/client";
 
 const userController = new Hono();
 userController.get("/:id", async (c: Context) => {
@@ -81,6 +82,22 @@ userController.post("/login", async (c: Context) => {
             success: false,
             message: err instanceof Error ? err.message : "Unkown Error",
         });
+    }
+})
+userController.post("/me", async (c: Context) => {
+    try {
+        const { id } = await c.req.json();
+        const getProfile = await dbUsers.getById(id);
+        return c.json({
+            success: true,
+            message: "User Found",
+            profile: getProfile,
+        })
+    } catch (err) {
+        return c.json({
+            success: false,
+            message: err instanceof Error ? err.message : "Unknown Error"
+        })
     }
 })
 

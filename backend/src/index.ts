@@ -9,10 +9,11 @@ import imagesController from './controllers/images.controller.js'
 
 const app = new Hono()
 
-app.use("users/get-all", authMiddleware);
-
 app.use("*", logger());
 app.use("*", customCORS());
+app.use("users/get-all", authMiddleware);
+app.use("users/me", authMiddleware);
+
 app.get('/', (c) => {
   return c.json({
     success: true,

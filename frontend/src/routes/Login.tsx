@@ -20,7 +20,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { id, setId } = useUsers();
+  const { id, setId, setError } = useUsers();
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
     console.log(e.target.value);
@@ -29,11 +29,6 @@ const Login = () => {
     setPassword(e.target.value);
     console.log(e.target.value);
   };
-  useEffect(() => {
-    if (id) {
-      navigate("/");
-    }
-  }, []);
   return (
     <div className="flex w-full  items-center justify-center p-5">
       <Card className="w-full max-w-sm">
@@ -86,13 +81,14 @@ const Login = () => {
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <Button
+            type="submit"
             onClick={async (e: MouseEvent<HTMLButtonElement>) => {
               e.preventDefault();
               const startLogin = await login(username, password, setId);
-              if (!startLogin) {
-                console.log("Login Error");
+              if (!startLogin.success) {
+                setError(startLogin.message || "");
               } else {
-                navigate("/");
+                window.location.href = "/";
               }
             }}
             className="w-full"
@@ -124,12 +120,20 @@ const login = async (
     if (!res.ok) {
       throw new Error("Error While fetching data");
     }
-    console.log("Login Success");
     const data = await res.json();
+    if (!data.success) {
+      throw new Error(data.message);
+    }
     setId(data.id);
-    return true;
+    return {
+      success: true,
+      message: "Success Login",
+    };
   } catch (err) {
-    return false;
+    return {
+      success: false,
+      message: err instanceof Error ? err.message : "Unknown Error",
+    };
   }
 };
 

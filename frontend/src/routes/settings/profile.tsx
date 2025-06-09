@@ -7,15 +7,23 @@ import { SquarePen, Check } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useUsers } from "@/contexts/userContext";
 
 const Profile: FC = () => {
+  const { profile } = useUsers();
   return (
-    <div className="flex p-5 flex-col gap-3 justify-start">
-      <typo.H3>Profile</typo.H3>
-      <CustomCard label="Username" value="JekiTheRight" />
-      <Separator className="my-1" />
-      <CustomCard label="Email" value="jekitheright@gmail.com" />
-    </div>
+    <>
+      {profile ? (
+        <div className="flex p-5 flex-col gap-3 justify-start">
+          <typo.H3>Profile</typo.H3>
+          <CustomCard label="Username" value={profile.username} />
+          <Separator className="my-1" />
+          <CustomCard label="Email" value={profile.email} />
+        </div>
+      ) : (
+        <Button>Login</Button>
+      )}
+    </>
   );
 };
 

@@ -13,7 +13,16 @@ const Home: FC = () => {
       {profile ? (
         <typo.Large>Welcome {profile.username}!!</typo.Large>
       ) : (
-        <typo.Large>Welcome Guests</typo.Large>
+        <typo.Large>
+          Welcome Guests!, click here to{" "}
+          <Link to="/login" className="underline">
+            Login
+          </Link>{" "}
+          or{" "}
+          <Link to="/register" className="underline">
+            Sign Up
+          </Link>
+        </typo.Large>
       )}
       <MenuContainer />
     </div>
