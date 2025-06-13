@@ -12,9 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useTitle } from "@/components/utils/useTitle";
 
 const Register = () => {
   const navigate = useNavigate();
+  useTitle("Sign Up");
 
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");

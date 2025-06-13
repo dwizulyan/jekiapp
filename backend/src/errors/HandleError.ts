@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { NotFoundError } from "./NotFoundError.js";
 import { ValidationError } from "./ValidationError.js";
+import { BadRequestError } from "./BadRequestError.js";
 
 export function handleError(err: unknown): never {
 
@@ -11,7 +12,7 @@ export function handleError(err: unknown): never {
 
     if (err instanceof Prisma.PrismaClientValidationError) {
         console.error("Validation error:", err.message);
-        throw new Error("Invalid input data");
+        throw new Error(`${err.name} : Invalid input data`);
     }
 
     if (err instanceof Prisma.PrismaClientUnknownRequestError) {
@@ -20,15 +21,21 @@ export function handleError(err: unknown): never {
     }
     if (err instanceof NotFoundError) {
         if (err.statusCode) {
-            throw err;
+            throw new Error(`${err.name} : ${err.message}`);
         }
         throw new Error("Internal Server Error");
     }
     if (err instanceof ValidationError) {
         if (err.statusCode) {
-            throw err;
+            throw new Error(`${err.name} : ${err.message}`);
         }
         throw new Error("Internal Server Error");
+    }
+    if (err instanceof BadRequestError) {
+        if (err.statusCode) {
+
+            throw new Error(`${err.name} : ${err.message}`);
+        }
     }
 
     if (err instanceof Error) {

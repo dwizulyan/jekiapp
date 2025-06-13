@@ -5,9 +5,11 @@ import { cn } from "@/lib/utils";
 import { Library, Search, History, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUsers } from "@/contexts/userContext";
+import { useTitle } from "@/components/utils/useTitle";
 
 const Home: FC = () => {
   const { profile } = useUsers();
+  useTitle("Home");
   return (
     <div className="w-full h-screen p-5 flex-col gap-3 flex">
       {profile ? (

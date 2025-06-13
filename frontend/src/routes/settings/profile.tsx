@@ -8,9 +8,11 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useUsers } from "@/contexts/userContext";
+import { useTitle } from "@/components/utils/useTitle";
 
 const Profile: FC = () => {
   const { profile } = useUsers();
+  useTitle(`Profile | ${profile ? profile.username : ""}`);
   return (
     <>
       {profile ? (

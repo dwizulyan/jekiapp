@@ -39,6 +39,7 @@ const App: React.FC = () => {
       if (!check) {
         throw new Error("Error while fetching data");
       }
+
       const res = await check.json();
       if (!res.success) {
         setError(res.message);

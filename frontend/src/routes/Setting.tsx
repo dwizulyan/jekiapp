@@ -5,8 +5,10 @@ import { ChevronRight, FolderPen, Images } from "lucide-react";
 import { useUsers } from "@/contexts/userContext";
 import { Button } from "@/components/ui/button";
 import { logoutHandler } from "@/components/utils/logout";
+import { useTitle } from "@/components/utils/useTitle";
 
 const Settings: FC = () => {
+  useTitle("Seatting");
   const { profile, removeId } = useUsers();
   return (
     <div className="w-full p-5 relative min-h-screen">

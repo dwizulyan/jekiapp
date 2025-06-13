@@ -14,18 +14,18 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useUsers } from "@/contexts/userContext";
+import { useTitle } from "@/components/utils/useTitle";
 
 const Login = () => {
+  useTitle("Login");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setId, setError } = useUsers();
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
-    console.log(e.target.value);
   };
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
   };
   return (
     <div className="flex w-full  items-center justify-center p-5">

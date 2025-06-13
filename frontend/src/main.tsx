@@ -7,9 +7,11 @@ import Home from "./routes/Home.tsx";
 import Login from "./routes/Login.tsx";
 import ErrorPage from "./Error.tsx";
 import Register from "./routes/Register.tsx";
+import History from "./routes/History.tsx";
 import Settings from "./routes/Setting.tsx";
 import Search from "./routes/Search.tsx";
 import Profile from "./routes/settings/profile.tsx";
+import Library from "./routes/Library.tsx";
 
 import "./fonts.ts";
 
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: "settings/profile",
         element: <Profile />,
+      },
+      {
+        path: "history",
+        element: <History />,
+      },
+      {
+        path: "library",
+        element: <Library />,
       },
     ],
   },
